@@ -14,31 +14,30 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    const openSubMenu = document.querySelectorAll(".header-bottom__item>span");
-    const subMenu = document.querySelectorAll(".header-bottom__subitems");
+    const openSubMenu = document.querySelector(".header-bottom__item>span");
+    const heightServices = document.querySelector(".header-bottom__services");
 
-    for (let i = 0; i < subMenu.length; i++) {
-        openSubMenu[i].addEventListener("click", function () {
-            if (openSubMenu[i].classList.contains("open")) {
-                openSubMenu[i].classList.remove("open");
-                subMenu[i].classList.remove("open");
-            } else {
-                for (let i = 0; i < subMenu.length; i++) {
-                    openSubMenu[i].classList.remove("open");
-                    subMenu[i].classList.remove("open");
-                }
-                openSubMenu[i].classList.add("open");
-                subMenu[i].classList.add("open");
-            }
-        });
-    }
+    openSubMenu.addEventListener("click", function () {
+        if (heightServices.classList.contains("open")) {
+            heightServices.classList.remove("open");
+            openSubMenu.classList.remove("open");
+        } else {
+            heightServices.classList.add("open");
+            openSubMenu.classList.add("open");
+        }
+    });
 
     document.addEventListener("click", function (event) {
-        if (!event.target.closest(".header-bottom__subitems") && !event.target.closest(".header-bottom__item>span")) {
-            for (let i = 0; i < subMenu.length; i++) {
-                openSubMenu[i].classList.remove("open");
-                subMenu[i].classList.remove("open");
-            }
+        if (!event.target.closest(".header-bottom__item>span") && !event.target.closest(".header-bottom__services")) {
+            heightServices.classList.remove("open");
+            openSubMenu.classList.remove("open");
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.which == 27) {
+            heightServices.classList.remove("open");
+            openSubMenu.classList.remove("open");
         }
     });
 
@@ -325,4 +324,65 @@ document.addEventListener("DOMContentLoaded", function () {
             footerButton.innerHTML = footerButtonTextAfter;
         }
     });
+
+    if (document.querySelector(".services")) {
+        const servicesImg = document.querySelector(".services__img");
+        const servicesImgWrapper = document.querySelector(".services-img__parallax-container");
+
+        function servicesImgPadding() {
+            let headerHeight = header.clientHeight;
+            let paddingValue = headerHeight - 40;
+            
+            servicesImg.style.paddingTop = paddingValue + "px";
+            servicesImgWrapper.style.height = "calc(100% - " + paddingValue + "px)";
+        }
+
+        servicesImgPadding();
+        window.addEventListener("resize", servicesImgPadding);
+    
+        if (servicesImg) {
+            let mouseX = 0;
+            let mouseY = 0;
+            let currentX = 0;
+            let currentY = 0;
+            
+            function animateParallax() {
+                currentX += (mouseX - currentX) * 0.1;
+                currentY += (mouseY - currentY) * 0.1;
+                
+                const icons = servicesImg.querySelectorAll('.services-img__icon');
+                
+                if (icons.length >= 3) {
+                    icons[0].style.transform = `translate(${currentX * 10}px, ${currentY * 10}px) rotate(-10deg)`;
+                    icons[1].style.transform = `translate(${currentX * -8}px, ${currentY * 8}px) rotate(15deg)`;
+                    icons[2].style.transform = `translate(${currentX * 6}px, ${currentY * -6}px) rotate(-10deg)`;
+                }
+                
+                requestAnimationFrame(animateParallax);
+            }
+            
+            servicesImg.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                
+                mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+                mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+            });
+            
+            servicesImg.addEventListener('mouseleave', function() {
+                mouseX = 0;
+                mouseY = 0;
+            });
+            
+            animateParallax();
+        }
+    }
+
+    function heightServicesHeight() {
+        let currentHeight = header.clientHeight + 15;
+
+        heightServices.style.height = "calc(100vh - " + currentHeight + "px)";
+    }
+
+    heightServicesHeight();
+    window.addEventListener("resize", heightServicesHeight);
 });
