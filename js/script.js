@@ -158,15 +158,63 @@ document.addEventListener("DOMContentLoaded", function () {
         const swiper = new Swiper('.portfolio__body.swiper', {
             slidesPerView: 'auto',
             spaceBetween: 32,
-
+            centeredSlides: false,
+            loop: true,
+            speed: 600,
+            grabCursor: true,
+            resistance: false,
+            resistanceRatio: 0,
+            watchOverflow: false,
+            touchRatio: 1,
+            touchAngle: 45,
+            simulateTouch: true,
+            shortSwipes: false,
+            longSwipes: true,
+            longSwipesRatio: 0.3,
+            longSwipesMs: 300,
             autoplay: {
                 delay: 5000,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
             },
-
-            loop: true,
+            breakpoints: {
+                320: {
+                    spaceBetween: 16,
+                    slidesOffsetBefore: 20,
+                    slidesOffsetAfter: 100,
+                },
+                768: {
+                    spaceBetween: 32,
+                    slidesOffsetBefore: 20,
+                    slidesOffsetAfter: 200,
+                },
+                1024: {
+                    spaceBetween: 32,
+                    slidesOffsetBefore: 20,
+                    slidesOffsetAfter: 300,
+                }
+            }
         });
+        
+        const swiperContainer = document.querySelector('.portfolio__body');
+        
+        swiperContainer.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                e.preventDefault();
+                
+                if (e.deltaX > 0) {
+                    swiper.slideNext();
+                } else {
+                    swiper.slidePrev();
+                }
+            }
+        }, { passive: false });
+        
+        swiperContainer.addEventListener('touchmove', (e) => {
+            if (Math.abs(e.touches[0].clientX - e.touches[1]?.clientX || 0) > 10) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     }
 
     if (document.querySelector(".team")) {
@@ -179,14 +227,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const imgRect = teamImg.getBoundingClientRect();
             const pointRect = point.getBoundingClientRect();
             
-            // Вычисляем позицию точки в пикселях
             const pointLeftPercent = parseFloat(point.style.left);
             const pointLeftPx = (pointLeftPercent / 100) * imgRect.width;
             
-            // Ширина плашки в пикселях
             const badgeWidth = teamPointBadges[0].clientWidth;
             
-            // Проверяем, выходит ли плашка за правый край
             if (pointLeftPx + badgeWidth > imgRect.width) {
                 badge.classList.add('right-aligned');
             } else {
@@ -380,9 +425,22 @@ document.addEventListener("DOMContentLoaded", function () {
     function heightServicesHeight() {
         let currentHeight = header.clientHeight + 15;
 
-        heightServices.style.height = "calc(100vh - " + currentHeight + "px)";
+        heightServices.style.maxHeight = "calc(100vh - " + currentHeight + "px)";
     }
 
     heightServicesHeight();
     window.addEventListener("resize", heightServicesHeight);
+
+    if (document.querySelector(".portfolio__cover")) {
+        const portfolioCover = document.querySelector(".portfolio__cover");
+        const container = document.querySelector(".container");
+
+        function portfolioCoverWidth() {
+            let width = (window.innerWidth - container.clientWidth) / 2;
+            portfolioCover.style.width = width + "px";
+        }
+
+        portfolioCoverWidth();
+        window.addEventListener("resize", portfolioCoverWidth);
+    }
 });
