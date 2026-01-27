@@ -128,9 +128,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const servicesButton = document.querySelector(".services__button > button");
         const servicesButtonTextBefore = servicesButton.innerHTML;
         const servicesButtonTextAfter = servicesButton.id;
+        const servicesCount = Number(document.querySelector(".services__body").dataset.count);
 
         function hideServices() {
-            for (let i = 3; i < servicesItems.length; i++) {
+            for (let i = servicesCount; i < servicesItems.length; i++) {
                 servicesItems[i].style.display = "none";
             }
         }
@@ -370,7 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    if (document.querySelector(".services")) {
+    if (document.querySelector(".services__img")) {
         const servicesImg = document.querySelector(".services__img");
         const servicesImgWrapper = document.querySelector(".services-img__parallax-container");
 
@@ -496,4 +497,179 @@ document.addEventListener("DOMContentLoaded", function () {
         window.addEventListener('scroll', handleScroll);
         handleScroll();
     }
+
+    const missionHeroBlocks = document.querySelectorAll('.mission-hero');
+
+    if (missionHeroBlocks.length) {
+        function initParallaxBlock(missionHero) {
+            const mainImage = missionHero.querySelector('.mission-hero__img');
+            const parallaxImages = missionHero.querySelectorAll('.mission-hero-img__img');
+        
+            const settings = {
+                mainImageIntensity: 0.05,
+                elementsIntensity: 0.15,
+                maxMovement: 30
+            };
+            
+            function handleMouseMove(e) {
+                const rect = missionHero.getBoundingClientRect();
+                
+                const mouseX = (e.clientX - rect.left) / rect.width * 2 - 1;
+                const mouseY = (e.clientY - rect.top) / rect.height * 2 - 1;
+                
+                const clampedX = Math.max(-1, Math.min(1, mouseX));
+                const clampedY = Math.max(-1, Math.min(1, mouseY));
+                
+                if (mainImage) {
+                    const moveX = clampedX * settings.maxMovement * settings.mainImageIntensity;
+                    const moveY = clampedY * settings.maxMovement * settings.mainImageIntensity;
+                    mainImage.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+                }
+                
+                parallaxImages.forEach((img, index) => {
+                    const intensityMultiplier = 0.8 + (index * 0.1);
+                    const elementIntensity = settings.elementsIntensity * intensityMultiplier;
+                    
+                    const directionX = index % 2 === 0 ? 1 : -1;
+                    const directionY = index % 3 === 0 ? 1 : -1;
+                    
+                    const moveX = clampedX * settings.maxMovement * elementIntensity * directionX;
+                    const moveY = clampedY * settings.maxMovement * elementIntensity * directionY;
+                    
+                    img.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+                });
+            }
+            
+            function handleMouseLeave() {
+                if (mainImage) {
+                    mainImage.style.transform = 'translate3d(0, 0, 0)';
+                    mainImage.style.transition = 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
+                }
+                
+                parallaxImages.forEach(img => {
+                    img.style.transform = 'translate3d(0, 0, 0)';
+                    img.style.transition = 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
+                });
+                
+                setTimeout(() => {
+                    if (mainImage) {
+                        mainImage.style.transition = 'transform 0.3s ease-out';
+                    }
+                    parallaxImages.forEach(img => {
+                        img.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+                    });
+                }, 700);
+            }
+            
+            missionHero.addEventListener('mousemove', handleMouseMove);
+            missionHero.addEventListener('mouseleave', handleMouseLeave);
+            
+            missionHero.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                if (e.touches.length > 0) {
+                    handleMouseMove(e.touches[0]);
+                }
+            }, { passive: false });
+            
+            return {
+                destroy: function() {
+                    missionHero.removeEventListener('mousemove', handleMouseMove);
+                    missionHero.removeEventListener('mouseleave', handleMouseLeave);
+                    missionHero.removeEventListener('touchmove', handleMouseMove);
+                    
+                    if (mainImage) {
+                        mainImage.style.transform = 'translate3d(0, 0, 0)';
+                    }
+                    parallaxImages.forEach(img => {
+                        img.style.transform = 'translate3d(0, 0, 0)';
+                    });
+                }
+            };
+        }
+        
+        const parallaxInstances = [];
+        
+        missionHeroBlocks.forEach((block, index) => {
+            const instance = initParallaxBlock(block);
+            parallaxInstances.push(instance);
+            
+            block.dataset.parallaxInitialized = 'true';
+            block.dataset.parallaxIndex = index;
+        });
+        
+        window.destroyAllParallax = function() {
+            parallaxInstances.forEach(instance => {
+                if (instance && typeof instance.destroy === 'function') {
+                    instance.destroy();
+                }
+            });
+        };
+        
+        window.reinitParallax = function() {
+            destroyAllParallax();
+            missionHeroBlocks.forEach((block, index) => {
+                const instance = initParallaxBlock(block);
+                parallaxInstances[index] = instance;
+            });
+        };
+    }
+
+    function initParallaxBlockPrinciples(block, settings) {
+        if (!block) return;
+        
+        const elements = block.querySelectorAll(settings.elementsSelector);
+        
+        function handleMouseMove(e) {
+            const rect = block.getBoundingClientRect();
+            
+            const mouseX = (e.clientX - rect.left) / rect.width * 2 - 1;
+            const mouseY = (e.clientY - rect.top) / rect.height * 2 - 1;
+            
+            const clampedX = Math.max(-1, Math.min(1, mouseX));
+            const clampedY = Math.max(-1, Math.min(1, mouseY));
+            
+            elements.forEach((element, index) => {
+                const intensity = settings.intensity * (0.8 + (index * 0.1));
+                const directionX = index % 2 === 0 ? 1 : -1;
+                const directionY = index % 3 === 0 ? 1 : -1;
+                
+                const moveX = clampedX * settings.maxMovement * intensity * directionX;
+                const moveY = clampedY * settings.maxMovement * intensity * directionY;
+                
+                element.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+            });
+        }
+        
+        function handleMouseLeave() {
+            elements.forEach(element => {
+                element.style.transform = 'translate3d(0, 0, 0)';
+                element.style.transition = 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
+            });
+            
+            setTimeout(() => {
+                elements.forEach(element => {
+                    element.style.transition = settings.transition;
+                });
+            }, 700);
+        }
+        
+        block.addEventListener('mousemove', handleMouseMove);
+        block.addEventListener('mouseleave', handleMouseLeave);
+        
+        block.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (e.touches.length > 0) {
+                handleMouseMove(e.touches[0]);
+            }
+        }, { passive: false });
+    }
+
+    document.querySelectorAll('.principles').forEach(block => {
+        initParallaxBlockPrinciples(block, {
+            elementsSelector: '.principles__badge',
+            intensity: 0.15,
+            maxMovement: 30,
+            transition: 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)'
+        });
+    });
 });
