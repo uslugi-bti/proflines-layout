@@ -723,10 +723,16 @@ document.addEventListener("DOMContentLoaded", function () {
         constructor() {
             this.heroSection = document.querySelector('.service-hero');
             this.graphElement = document.querySelector('.service-hero-img__img');
+            this.heroImgContainer = document.querySelector('.service-hero__img');
             this.isAnimationComplete = false;
             this.isAnimating = false;
             this.currentY = 120;
-
+            this.targetY = 120;
+            this.lastTimestamp = 0;
+            this.scrollThreshold = 30;
+            this.scrollAccumulated = 0;
+            this.animationSpeed = 0.003;
+            
             this.init();
         }
 
@@ -734,18 +740,48 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!this.heroSection || !this.graphElement) return;
 
             this.graphElement.style.transform = `translate(-50%, ${this.currentY}%)`;
-            this.graphElement.style.transition = 'none';
+            this.graphElement.style.transition = 'transform 0.05s linear';
 
             window.addEventListener('wheel', this.onWheel.bind(this), { passive: false });
             window.addEventListener('touchmove', this.onTouch.bind(this), { passive: false });
 
             this.checkVisibility();
             window.addEventListener('scroll', this.checkVisibility.bind(this));
+            requestAnimationFrame(this.animate.bind(this));
+        }
+
+        animate(timestamp) {
+            if (!this.lastTimestamp) this.lastTimestamp = timestamp;
+            const deltaTime = timestamp - this.lastTimestamp;
+            this.lastTimestamp = timestamp;
+
+            if (this.isAnimating && !this.isAnimationComplete) {
+                if (this.targetY < this.currentY) {
+                    const diff = this.currentY - this.targetY;
+                    let speed = this.animationSpeed;
+                    
+                    if (diff < 20) {
+                        speed = this.animationSpeed * 1.5;
+                    }
+                    
+                    this.currentY -= diff * speed * deltaTime;
+                    
+                    if (this.currentY < 1) {
+                        this.currentY = 0;
+                        this.finishAnimation();
+                    } else {
+                        this.graphElement.style.transform = `translate(-50%, ${this.currentY}%)`;
+                    }
+                }
+            }
+            
+            requestAnimationFrame(this.animate.bind(this));
         }
 
         checkVisibility() {
+            if (this.isAnimationComplete) return;
             const rect = this.heroSection.getBoundingClientRect();
-            const isVisible = rect.top < window.innerHeight - 100 && rect.bottom > 100;
+            const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
 
             if (isVisible && !this.isAnimationComplete && !this.isAnimating) {
                 this.isAnimating = true;
@@ -755,42 +791,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
         onWheel(e) {
             if (!this.isAnimating || this.isAnimationComplete) return;
-
             e.preventDefault();
             e.stopPropagation();
 
-            if (e.deltaY > 0) {
-                this.currentY -= 5;
-                this.currentY = Math.max(0, this.currentY);
-
-                this.graphElement.style.transform = `translate(-50%, ${this.currentY}%)`;
-
-                if (this.currentY <= 0) {
-                    this.finishAnimation();
-                }
+            this.scrollAccumulated += Math.abs(e.deltaY);
+            
+            if (this.scrollAccumulated >= this.scrollThreshold) {
+                this.targetY = 0;
+                this.scrollAccumulated = 0;
             }
         }
 
         onTouch(e) {
             if (!this.isAnimating || this.isAnimationComplete) return;
-
             e.preventDefault();
 
             if (e.touches.length === 1 && this.lastTouchY) {
                 const currentY = e.touches[0].clientY;
-                const delta = this.lastTouchY - currentY;
-
-                if (delta > 0) {
-                    this.currentY -= 3;
-                    this.currentY = Math.max(0, this.currentY);
-
-                    this.graphElement.style.transform = `translate(-50%, ${this.currentY}%)`;
-
-                    if (this.currentY <= 0) {
-                        this.finishAnimation();
-                    }
+                const delta = Math.abs(this.lastTouchY - currentY);
+                
+                this.scrollAccumulated += delta;
+                
+                if (this.scrollAccumulated >= this.scrollThreshold) {
+                    this.targetY = 0;
+                    this.scrollAccumulated = 0;
                 }
-
+                
                 this.lastTouchY = currentY;
             } else if (e.touches.length === 1) {
                 this.lastTouchY = e.touches[0].clientY;
@@ -800,18 +826,19 @@ document.addEventListener("DOMContentLoaded", function () {
         finishAnimation() {
             this.isAnimationComplete = true;
             this.isAnimating = false;
+            this.targetY = 0;
 
-            this.graphElement.style.transition = 'transform 0.3s ease-out';
+            this.graphElement.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
             this.graphElement.style.transform = 'translate(-50%, 0%)';
             this.graphElement.classList.add('active');
-            document.querySelector(".service-hero__img").classList.add("active");
+            this.heroImgContainer.classList.add('active');
 
             setTimeout(() => {
                 document.body.classList.remove('body-scroll-lock');
                 window.removeEventListener('wheel', this.onWheel);
                 window.removeEventListener('touchmove', this.onTouch);
                 window.removeEventListener('scroll', this.checkVisibility);
-            }, 300);
+            }, 600);
         }
     }
 
