@@ -163,6 +163,20 @@ form .form-group {
           justify-content: flex-end;
 }
 
+form .form-group.valid-error input[type=text],
+form .form-group.valid-error textarea,
+form .form-group.valid-error select {
+  outline: 1px solid #ff0000;
+}
+
+form .form-group.valid-error.radio .form-group__body label > span {
+  outline: 1px solid #ff0000;
+}
+
+form .form-group.valid-error.checkbox .form-group__body label > span {
+  outline: 1px solid #ff0000;
+}
+
 form .form-group > label {
   font-size: 16px;
   color: #242A36;
@@ -6963,6 +6977,11 @@ main {
 
 .forward-agencies-item__content {
   max-width: 376px;
+  position: sticky;
+  top: 120px;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
 }
 
 .forward-agencies-item__title {
@@ -7950,6 +7969,10 @@ main {
   .forward-agencies__item {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
+  }
+
+  .forward-agencies-item__content {
+    position: static;
   }
 
   .footer-top {
