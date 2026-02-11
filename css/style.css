@@ -7280,11 +7280,6 @@ main {
     font-size: 30px;
   }
 
-  .technical-content-banner__title h2 {
-    font-size: 30px;
-    letter-spacing: 0;
-  }
-
   .single-content__body {
     padding: 32px 24px 20px 24px;
   }
@@ -7324,18 +7319,13 @@ main {
         -ms-flex-direction: column;
             flex-direction: column;
     gap: 15px;
-  }
-
-  .block-head__title h1 {
-    text-align: center;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
 
   .block-head__text {
     max-width: none;
-  }
-
-  .block-head__text p {
-    text-align: center;
   }
 
   .header-bottom__search input {
@@ -7595,7 +7585,7 @@ main {
   }
 
   .technical-content__body h2 {
-    font-size: 26px;
+    font-size: 28px;
   }
 
   .technical-content__body h3 {
@@ -7611,7 +7601,7 @@ main {
   }
 
   .single-content__body h2 {
-    font-size: 26px;
+    font-size: 28px;
   }
 
   .single-content__body h3 {
@@ -7707,8 +7697,16 @@ main {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .hero-title__images {
+    padding: 0;
+  }
+
+  .hero-title__img {
+    display: none;
+  }
+
   .expertise__title {
-    margin: 0px 0px 32px 0px;
+    margin: 0px 0px 40px 0px;
   }
 
   .technical__body {
@@ -7731,10 +7729,6 @@ main {
   .technical-content__banner {
     padding: 32px 32px 40px 32px;
     gap: 18px;
-  }
-
-  .technical-content-banner__title h2 {
-    font-size: 26px;
   }
 
   .technical__list {
@@ -8016,16 +8010,25 @@ main {
 }
 
 @media (max-width: 575px) {
-  .expertise__title h1 {
+  .hero__buttons {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  .hero__buttons a {
+    display: block;
     text-align: center;
   }
 
   .technical-head__title h1 {
-    font-size: 35px;
+    font-size: 34px;
   }
 
   .technical-content__title h1 {
-    font-size: 35px;
+    font-size: 34px;
   }
 
   .columns__body {
@@ -8053,7 +8056,7 @@ main {
   }
 
   .blog-content__title h1 {
-    font-size: 35px;
+    font-size: 34px;
     line-height: 100%;
     letter-spacing: 0;
   }
@@ -8069,26 +8072,26 @@ main {
   }
 
   .single-head__title h1 {
-    font-size: 35px;
+    font-size: 34px;
     line-height: 100%;
     letter-spacing: 0;
   }
 
   .briff-content__title h1 {
-    font-size: 35px;
+    font-size: 34px;
   }
 
   .briff-content__title h2 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .contact-content__title h1 {
     letter-spacing: 0;
-    font-size: 35px;
+    font-size: 34px;
   }
 
   .mission-hero__title h1 {
-    font-size: 35px;
+    font-size: 34px;
     letter-spacing: 0;
   }
 
@@ -8117,7 +8120,7 @@ main {
   }
 
   .service-hero__title h1 {
-    font-size: 35px;
+    font-size: 34px;
     letter-spacing: 0;
   }
 
@@ -8132,12 +8135,12 @@ main {
   }
 
   .qa-head__title h1 {
-    font-size: 35px;
+    font-size: 34px;
     letter-spacing: 0;
   }
 
   .expect__title h2 {
-    font-size: 25px;
+    font-size: 28px;
   }
 }
 
@@ -8230,8 +8233,8 @@ main {
   }
 
   .hero__title h1 {
-    font-size: 35px;
-    line-height: 120%;
+    font-size: 34px;
+    line-height: 90%;
     letter-spacing: 0;
   }
 
@@ -8245,24 +8248,8 @@ main {
 }
 
 @media (max-width: 480px) {
-  .technical-content__body h1 {
-    font-size: 28px;
-  }
-
-  .technical-content__body h2 {
-    font-size: 22px;
-  }
-
   .technical-content-banner__title h2 {
-    font-size: 22px;
-  }
-
-  .single-content__body h1 {
     font-size: 28px;
-  }
-
-  .single-content__body h2 {
-    font-size: 22px;
   }
 }
 
@@ -8319,19 +8306,15 @@ main {
   }
 
   form .form-head__title h2 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .block-head__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .hero__body {
     padding: 49px 0px 100px 0px;
-  }
-
-  .hero__title h1 {
-    font-size: 25px;
   }
 
   .hero__text {
@@ -8340,15 +8323,6 @@ main {
 
   .hero__text p {
     font-size: 17px;
-  }
-
-  .hero-title__images {
-    padding: 0px 55px;
-  }
-
-  .hero-title__img {
-    width: 40px;
-    height: 40px;
   }
 
   .companys {
@@ -8376,23 +8350,15 @@ main {
   }
 
   .expertise__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .technical {
     margin: 0px 0px 90px 0px;
   }
 
-  .technical-head__title h1 {
-    font-size: 25px;
-  }
-
   .technical-content__title {
     margin: 0px 0px 16px 0px;
-  }
-
-  .technical-content__title h1 {
-    font-size: 25px;
   }
 
   .columns__item {
@@ -8420,7 +8386,7 @@ main {
   }
 
   .services__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .partnership {
@@ -8432,7 +8398,7 @@ main {
   }
 
   .process__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .mission {
@@ -8448,7 +8414,7 @@ main {
   }
 
   .testimonials__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .why-us {
@@ -8487,7 +8453,7 @@ main {
   }
 
   .team-content__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .faq {
@@ -8495,7 +8461,7 @@ main {
   }
 
   .faq__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .banner {
@@ -8503,7 +8469,7 @@ main {
   }
 
   .banner__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .trust {
@@ -8515,7 +8481,7 @@ main {
   }
 
   .roi__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .roi__result .stats {
@@ -8529,7 +8495,7 @@ main {
   }
 
   .roi__result .stat__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .roi__result .note {
@@ -8538,35 +8504,19 @@ main {
   }
 
   .roi-box__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .blog {
     margin: 0px 0px 90px 0px;
   }
 
-  .blog-content__title h1 {
-    font-size: 25px;
-  }
-
-  .single-head__title h1 {
-    font-size: 25px;
-  }
-
   .briff {
     margin: 0px 0px 90px 0px;
   }
 
-  .briff-content__title h1 {
-    font-size: 25px;
-  }
-
   .briff__form {
     padding: 20px 16px;
-  }
-
-  .contact-content__title h1 {
-    font-size: 25px;
   }
 
   .contact__form {
@@ -8577,12 +8527,8 @@ main {
     margin: 0px 0px 90px 0px;
   }
 
-  .mission-hero__title h1 {
-    font-size: 25px;
-  }
-
   .mission-hero__title h2 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .how {
@@ -8594,11 +8540,7 @@ main {
   }
 
   .principles__title h2 {
-    font-size: 25px;
-  }
-
-  .service-hero__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .value-proposition {
@@ -8618,7 +8560,7 @@ main {
   }
 
   .expertise-nums-item__title h2 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .banners {
@@ -8626,7 +8568,7 @@ main {
   }
 
   .banners__title h2 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .table {
@@ -8635,10 +8577,6 @@ main {
 
   .important-notes {
     margin: 0px 0px 90px 0px;
-  }
-
-  .qa-head__title h1 {
-    font-size: 25px;
   }
 
   .marketing-page .columns__item {
@@ -8669,8 +8607,16 @@ main {
     padding: 24px;
   }
 
+  .gradient-block__title h2 {
+    font-size: 28px;
+  }
+
   .transparency {
     margin: 0px 0px 90px 0px;
+  }
+
+  .transparency__title h2 {
+    font-size: 28px;
   }
 
   .forward-agencies {
