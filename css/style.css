@@ -1938,6 +1938,19 @@ main {
   border-radius: 10px;
 }
 
+.technical-content__body blockquote * {
+  margin: 0 0 10px 0;
+}
+
+.technical-content__body blockquote *:last-child {
+  margin: 0;
+}
+
+.technical-content__body blockquote.red {
+  border-left: 3px solid #E53E3E;
+  background-color: rgba(229, 62, 62, 0.1098039216);
+}
+
 .technical-content__body hr {
   border: none;
   height: 1px;
@@ -2093,9 +2106,9 @@ main {
 }
 
 .columns__item {
-  padding: 32px 32px 100px 32px;
+  padding: 32px;
   background-color: #FFFFFF;
-  border: 1px solid #E4E4E4;
+  outline: 1px solid #E4E4E4;
   border-radius: 10px;
   -webkit-transition: 0.3s ease 0s;
   transition: 0.3s ease 0s;
@@ -2120,6 +2133,7 @@ main {
 .columns__item:hover {
   -webkit-box-shadow: 0px 20px 95px 0px rgba(201, 203, 204, 0.3019607843);
           box-shadow: 0px 20px 95px 0px rgba(201, 203, 204, 0.3019607843);
+  outline: 0;
 }
 
 .columns__item.choose {
@@ -3561,6 +3575,7 @@ main {
   margin: 0px 0px 40px 0px;
   position: relative;
   z-index: 3;
+  margin: 0 auto 32px;
 }
 
 .faq__title h1 {
@@ -4558,6 +4573,23 @@ main {
 .single-head__date span {
   font-size: 13px;
   color: #717580;
+}
+
+.single-head__banner {
+  padding: 24px;
+  background-color: #F5F5F5;
+  border: 0.8px solid #E4E4E4;
+  border-radius: 10px;
+}
+
+.single-head__banner p {
+  font-size: 16px;
+  color: #242A36;
+  line-height: 157%;
+}
+
+.single-head__banner p strong {
+  font-weight: 600;
 }
 
 .single-head__img {
@@ -7024,6 +7056,113 @@ main {
   border-radius: 10px;
 }
 
+.mistakes-page .breadcrump {
+  margin: 0px 0px 81px 0px;
+}
+
+.mistakes-page .single__body {
+  margin: 0px 0px 32px 0px;
+}
+
+.mistakes {
+  margin: 0px 0px 150px 0px;
+}
+
+.error {
+  padding: 62px 0px;
+  position: relative;
+  overflow-x: clip;
+}
+
+.error::before {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 42.5%;
+  width: 218px;
+  height: 218px;
+  background-color: #FFC721;
+  border-radius: 50%;
+  -webkit-filter: blur(370px);
+          filter: blur(370px);
+  -webkit-animation: floatMovement 15s ease-in-out infinite alternate;
+          animation: floatMovement 15s ease-in-out infinite alternate;
+}
+
+.error__body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-width: 481px;
+  width: 100%;
+  margin: 0 auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 24px;
+}
+
+.error__body:hover .error__title span {
+  color: #717580;
+}
+
+.error__body:hover .error__title span:first-child {
+  -webkit-transform: rotate(12deg);
+      -ms-transform: rotate(12deg);
+          transform: rotate(12deg);
+}
+
+.error__body:hover .error__title span:nth-child(2) {
+  -webkit-transform: rotate(10.87deg);
+      -ms-transform: rotate(10.87deg);
+          transform: rotate(10.87deg);
+}
+
+.error__body:hover .error__title span:last-child {
+  -webkit-transform: rotate(-13deg);
+      -ms-transform: rotate(-13deg);
+          transform: rotate(-13deg);
+}
+
+.error__title {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.error__title span {
+  color: #242A36;
+  font-weight: 500;
+  font-size: 181.7px;
+  -webkit-transition: 0.3s ease 0s;
+  transition: 0.3s ease 0s;
+}
+
+.error__title span:nth-child(2) {
+  -webkit-transform: rotate(-24.3deg);
+      -ms-transform: rotate(-24.3deg);
+          transform: rotate(-24.3deg);
+}
+
+.error__text p {
+  text-align: center;
+  color: #717580;
+  font-size: 20px;
+  line-height: 157%;
+  letter-spacing: 0.4px;
+}
+
 .footer {
   border-top: 1px solid #E4E4E4;
   padding: 64px 0px 30px 0px;
@@ -7586,6 +7725,7 @@ main {
 
   .technical-content__body h2 {
     font-size: 28px;
+    margin: 0px 0px 24px 0px;
   }
 
   .technical-content__body h3 {
@@ -7602,6 +7742,7 @@ main {
 
   .single-content__body h2 {
     font-size: 28px;
+    margin: 0px 0px 24px 0px;
   }
 
   .single-content__body h3 {
@@ -7695,6 +7836,15 @@ main {
   .header-bottom-services__items {
     -ms-grid-columns: (1fr)[2];
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero::before {
+    -webkit-filter: blur(450px);
+            filter: blur(450px);
+  }
+
+  .hero__body {
+    padding: 49px 0px 100px 0px;
   }
 
   .hero-title__images {
@@ -7969,6 +8119,10 @@ main {
     position: static;
   }
 
+  .error__title span {
+    font-size: 130px;
+  }
+
   .footer-top {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
@@ -8010,6 +8164,10 @@ main {
 }
 
 @media (max-width: 575px) {
+  .block__head {
+    margin: 0px 0px 24px 0px;
+  }
+
   .hero__buttons {
     width: 100%;
     -webkit-box-orient: vertical;
@@ -8021,6 +8179,10 @@ main {
   .hero__buttons a {
     display: block;
     text-align: center;
+  }
+
+  .expertise__title {
+    margin: 0px 0px 24px 0px;
   }
 
   .technical-head__title h1 {
@@ -8041,6 +8203,22 @@ main {
     grid-column: span 1;
   }
 
+  .columns__item {
+    padding: 24px;
+  }
+
+  .services__title {
+    margin: 0px 0px 24px 0px;
+  }
+
+  .process__title {
+    margin: 0px 0px 24px 0px;
+  }
+
+  .testimonials__title {
+    margin: 0 auto 24px;
+  }
+
   .testimonials__body {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
@@ -8053,6 +8231,14 @@ main {
   .team__items {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
+  }
+
+  .faq__title {
+    margin: 0 auto 24px;
+  }
+
+  .roi__title {
+    margin: 0px 0px 24px 0px;
   }
 
   .blog-content__title h1 {
@@ -8134,6 +8320,10 @@ main {
     grid-template-columns: 1fr;
   }
 
+  .banners__title {
+    margin: 0px 0px 24px 0px;
+  }
+
   .qa-head__title h1 {
     font-size: 34px;
     letter-spacing: 0;
@@ -8141,6 +8331,10 @@ main {
 
   .expect__title h2 {
     font-size: 28px;
+  }
+
+  .transparency__title {
+    margin: 0px 0px 24px 0px;
   }
 }
 
@@ -8313,10 +8507,6 @@ main {
     font-size: 28px;
   }
 
-  .hero__body {
-    padding: 49px 0px 100px 0px;
-  }
-
   .hero__text {
     margin: 0px 0px 20px 0px;
   }
@@ -8359,10 +8549,6 @@ main {
 
   .technical-content__title {
     margin: 0px 0px 16px 0px;
-  }
-
-  .columns__item {
-    padding: 24px 24px 92px 24px;
   }
 
   .packages {
@@ -8624,7 +8810,7 @@ main {
   }
 
   .footer-top__title h1 {
-    font-size: 25px;
+    font-size: 28px;
   }
 
   .footer-top__columns {
