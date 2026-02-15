@@ -1074,4 +1074,81 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+    
+    if (document.querySelector(".analysis__chart")) {
+        const ctx = document.getElementById('chart').getContext("2d");
+
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2016','2017','2018','2019','2020','2021','2022','2023'],
+                datasets: [{
+                    data: [40000, 50000, 45000, 47000, 48000, 38900, 47000, 57544],
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: '#242A361A',
+
+                    pointRadius: function(ctx) {
+                        const data = ctx.dataset.data;
+                        const value = ctx.raw;
+                        const min = Math.min(...data);
+                        const max = Math.max(...data);
+
+                        if (value === min || value === max) return 6;
+                        return 4;
+                    },
+
+                    pointBackgroundColor: function(ctx) {
+                        const data = ctx.dataset.data;
+                        const value = ctx.raw;
+                        const min = Math.min(...data);
+                        const max = Math.max(...data);
+
+                        if (value === min) return '#0D894F';
+                        if (value === max) return '#FFC721';
+
+                        return '#242A36';
+                    },
+
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                    },
+                    y: {
+                        ticks: {
+                            callback: function(value) {
+                                return value / 1000 + 'k';
+                            }
+                        },
+                        grid: {
+                            color: '#E4E4E4',
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1500
+                }
+            }
+        });
+    }
 });
