@@ -7330,12 +7330,12 @@ main {
 
 .analysis__chart {
   overflow-x: auto;
-  margin: 0px 0px 40px 0px;
+  margin: 0px 0px 32px 0px;
 }
 
 .analysis__table {
   overflow-x: auto;
-  margin: 0px 0px 40px 0px;
+  margin: 0px 0px 32px 0px;
 }
 
 .analysis__quote {
@@ -7353,6 +7353,16 @@ main {
 .analysis__quote p strong {
   color: #242A36;
   font-weight: 600;
+}
+
+.analysis__button {
+  margin: 0 auto 40px;
+  max-width: 329px;
+  width: 100%;
+}
+
+.analysis__button a {
+  display: block;
 }
 
 .analysis-item__head {
